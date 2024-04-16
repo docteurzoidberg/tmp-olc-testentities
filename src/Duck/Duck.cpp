@@ -12,6 +12,10 @@ Duck::~Duck() {
   std::cout << "Duck destructor" << std::endl;
 }
 
+void Duck::setFollowTarget(Duck * duckToFollow) {
+  this->duckToFollow = duckToFollow;
+}
+
 void Duck::setAnimation(uint8_t anim) {
 
   uint8_t startIndex = 0;
@@ -75,8 +79,6 @@ void Duck::startSwimming() {
 
 //given other pnjs, player pos and tilemap 2d array, update duck logic
 void Duck::tick(TileMap *tileMap, Player *player, std::vector<PNJ> *pnjs, float fElapsedTime) {
-
-
 
   if(state == STATE_IDLE) {
 

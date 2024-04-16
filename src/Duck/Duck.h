@@ -38,6 +38,7 @@ class Duck : public PNJ {
     ~Duck();
 
     void setAnimation(uint8_t anim);
+    void setFollowTarget(Duck * duckToFollow);
 
     //state changes
     void startIdling();
@@ -48,4 +49,7 @@ class Duck : public PNJ {
 
     //given other pnjs, player pos and tilemap 2d array, update duck logic
     void tick(TileMap *tileMap, Player *player, std::vector<PNJ> *pnjs, float fElapsedTime);
+
+  private:
+    Duck* duckToFollow = nullptr;
 };

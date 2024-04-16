@@ -36,7 +36,7 @@ void PNJ::setAnimation(uint8_t startIndex, uint8_t endIndex, float fps) {
   animationFps = fps;
 }
 
-void PNJ::update(float fElapsedTime) {
+void PNJ::update(float elapsedTime) {
   
   //update animation
   if (curAnimationFrame < endAnimationFrame) {
@@ -51,7 +51,7 @@ void PNJ::update(float fElapsedTime) {
   //float moveX = (rand() % 3) - 1;
   //float moveY = (rand() % 3) - 1;
   //setTarget(x+ moveX, y+moveY);
-  //move(fElapsedTime*0.1f);
+  //move(elapsedTime*0.1f);
 }
 
 void PNJ::setTarget(float dx, float dy) {

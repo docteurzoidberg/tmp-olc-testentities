@@ -4,12 +4,12 @@ GameRenderer::GameRenderer() {
   sAppName = "Tiles";
 }
 
-void GameRenderer::RenderPNJs(float fElapsedTime) {
+void GameRenderer::RenderPNJs(float elapsedTime) {
   for(auto pnj : game.pnjs) {
 
     //if pnj is a duck
     if(Duck* duck = static_cast<Duck*>(pnj)) {
-      //duck->update(fElapsedTime);
+      //duck->update(elapsedTime);
     }
 
     //tile offset relative to player (screen center)
@@ -28,7 +28,7 @@ void GameRenderer::RenderPNJs(float fElapsedTime) {
 
     //TODO: draw pnj sprite
     //TODO: update pnj logic@
-    pnj->update(fElapsedTime);
+    pnj->update(elapsedTime);
   }
 }
 
@@ -41,7 +41,7 @@ void GameRenderer::RenderTileMap() {
       auto tileNoise = game.tileMap.getNoiseXY(x, y);
       auto tile = game.tileMap.toTile(tileNoise);
 
-      if(!bShowPerlin && tile == TILE_NOTHING) 
+      if(!showPerlin && tile == TILE_NOTHING) 
         continue;
 
       //tile position on screen is tileOffset - screen center to get at 0
@@ -50,10 +50,10 @@ void GameRenderer::RenderTileMap() {
       auto tileCoords = olc::vi2d(tileX, tileY);
       
       //draw directly to screen*
-      if(bShowPerlin)
+      if(showPerlin)
         FillRect(tileCoords, tileSize, olc::Pixel(tileNoise, tileNoise, tileNoise));
       else
-        DrawPartialSprite(tileCoords, sprTileSheet.get(), olc::vi2d(tile, (bUseDebugSprites?0:1))*tileSize, tileSize); 
+        DrawPartialSprite(tileCoords, sprTileSheet.get(), olc::vi2d(tile, (useDebugSprites?0:1))*tileSize, tileSize); 
       
       //Draw to a buffer sprite instead of screen
       //for (int ty = 0; ty < tileSize.y; ty++) {
@@ -85,30 +85,30 @@ bool GameRenderer::OnUserCreate() {
   return true;
 }
 
-bool GameRenderer::OnUserUpdate(float fElapsedTime) {  
+bool GameRenderer::OnUserUpdate(float elapsedTime) {  
 
-  fTotalTime+=fElapsedTime;
+  totalTime+=elapsedTime;
 
   // Handle Input
   if (GetKey(olc::Key::D).bPressed){
-    bShowDebug = !bShowDebug;
-    bUseDebugSprites = !bUseDebugSprites;
+    showDebug = !showDebug;
+    useDebugSprites = !useDebugSprites;
   }
 
   if(GetKey(olc::Key::P).bPressed)
-    bShowPerlin = !bShowPerlin;
+    showPerlin = !showPerlin;
 
   if(GetKey(olc::Key::UP).bHeld) 
-    game.movePlayer(0,-15.0f * fElapsedTime);  
+    game.movePlayer(0,-15.0f * elapsedTime);  
   
   if(GetKey(olc::Key::DOWN).bHeld) 
-    game.movePlayer(0, 15.0f * fElapsedTime);  
+    game.movePlayer(0, 15.0f * elapsedTime);  
 
   if(GetKey(olc::Key::RIGHT).bHeld) 
-    game.movePlayer(15.0f * fElapsedTime, 0);  
+    game.movePlayer(15.0f * elapsedTime, 0);  
   
   if(GetKey(olc::Key::LEFT).bHeld) 
-    game.movePlayer(-15.0f * fElapsedTime, 0); 
+    game.movePlayer(-15.0f * elapsedTime, 0); 
 
   //debug show player pos if player as moved
   if(game.player.hasMoved) {
@@ -130,10 +130,10 @@ bool GameRenderer::OnUserUpdate(float fElapsedTime) {
   RenderTileMap();
 
   //render and update PNJs
-  RenderPNJs(fElapsedTime);
+  RenderPNJs(elapsedTime);
   
   //update game logic
-  game.update(fElapsedTime);
+  game.update(elapsedTime);
   
   return true;
 }

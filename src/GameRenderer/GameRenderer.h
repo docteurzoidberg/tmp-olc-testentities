@@ -12,10 +12,10 @@ class GameRenderer : public olc::PixelGameEngine {
   private:
     Game game;
 
-    float fTotalTime = 0.0f;
-    bool bShowDebug = true;
-    bool bShowPerlin = false;
-    bool bUseDebugSprites = true;
+    float totalTime = 0.0f;
+    bool showDebug = true;
+    bool showPerlin = false;
+    bool useDebugSprites = true;
 
     std::unique_ptr<olc::Sprite> sprTileSheet;
 
@@ -24,11 +24,11 @@ class GameRenderer : public olc::PixelGameEngine {
 
   protected:
 
-    void RenderPNJs(float fElapsedTime);
+    void RenderPNJs(float elapsedTime);
 
     void RenderTileMap();
 
     virtual bool OnUserCreate();
 
-    virtual bool OnUserUpdate(float fElapsedTime);
+    virtual bool OnUserUpdate(float elapsedTime);
 };

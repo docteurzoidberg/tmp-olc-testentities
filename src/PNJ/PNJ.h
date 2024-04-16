@@ -18,7 +18,7 @@ class PNJ {
     uint8_t animationFps = 1;
     bool animationLoop = false;
 
-    float fTotalTime = 0.0f;
+    float totalTime = 0.0f;
 
     float targetX=0.0f;
     float targetY=0.0f; 
@@ -44,7 +44,7 @@ class PNJ {
 
     void setAnimation(uint8_t startIndex, uint8_t endIndex, float fps);
 
-    void update(float fElapsedTime);
+    void update(float elapsedTime);
 
     void setTarget(float dx, float dy); 
     void move(float elapsedTime);
