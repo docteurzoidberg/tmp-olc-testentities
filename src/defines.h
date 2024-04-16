@@ -1,0 +1,13 @@
+#pragma once 
+
+#define SCREEN_W 480
+#define SCREEN_H 480
+#define SCREEN_PIXELSIZE 1
+#define TILE_WIDTH 16
+#define TILE_HEIGHT 16
+#define TILES_X 30
+#define TILES_Y 30
+#define TILEMAP_WIDTH (TILES_X * TILE_WIDTH)
+#define TILEMAP_HEIGHT (TILES_Y * TILE_HEIGHT)
+
+#define SEED 1962784967
