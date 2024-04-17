@@ -2,6 +2,7 @@
 
 #include "../Game/Game.h"
 #include "../PNJ/PNJ.h"
+#include "../Context/Context.h"
 
 class Duck : public PNJ {
   public:
@@ -47,8 +48,11 @@ class Duck : public PNJ {
     void startFleeing(olc::vf2d awayFrom);
     void startSwimming();
 
+    void checkIdle(Context context);
+    void checkWandering(Context context);
+
     //given other pnjs, player pos and tilemap 2d array, update duck logic
-    void tick(TileMap *tileMap, Player *player, std::vector<PNJ> *pnjs, float fElapsedTime);
+    void tick(Context context);
 
   private:
     Duck* duckToFollow = nullptr;

@@ -55,9 +55,10 @@ void Duck::startIdling() {
 }
 
 void Duck::startWandering() {
+  std::cout << "Duck " << name << "start wandering" << std::endl;
   state = STATE_WANDERING;
+  setAnimation(ANIM_WALK);   
   //todo: choose random target
-  setAnimation(ANIM_WALK);
 }
 
 void Duck::startFollowing(Duck * duckToFollow) {
@@ -77,31 +78,55 @@ void Duck::startSwimming() {
   setAnimation(ANIM_SWIM);
 }
 
+void Duck::checkIdle(Context context) {
+  //if player is near, start fleeing
+  //if player is not close, start wandering/following
+  //else, player is too far, stay idle
+
+  Player *player = context.player;
+
+  //calculate distance to player
+  float dist = sqrt((player->x - x)*(player->x - x) + (player->y - y)*(player->y - y));
+  if(dist < 5) {
+    startFleeing(olc::vi2d(player->x, player->y));
+  } else if(dist < 20) {
+    if(isLeader) {
+      startWandering();
+    } else {
+      //todo: check which other duck to follow
+      //startFollowing(nullptr);
+    }
+  } else {
+    //stay idle
+  }
+}
+
+void Duck::checkWandering(Context context) {
+  
+}
+
 //given other pnjs, player pos and tilemap 2d array, update duck logic
-void Duck::tick(TileMap *tileMap, Player *player, std::vector<PNJ> *pnjs, float fElapsedTime) {
+void Duck::tick(Context context) {
 
   if(state == STATE_IDLE) {
 
-    //if player is not close, start wandering/following
-    //if player is far, stay idle
     //if player is near, start fleeing
-    //if water is near, start swimming
+    //if player is not close, start wandering/following
+    //else, player is too far, stay idle
 
-  } else if(state == STATE_WANDERING) {
+    checkIdle(context);
 
-    //if player is near start fleeing
+  } else if(state == STATE_WANDERING || state == STATE_FOLLOWING) {
+    
     //if player is very far, start idling
+    //if player is near start fleeing
     //if water is near, target water
     //if on water start swimming
 
     //-> if current wandering target reached, choose new target
+    //-> if following, check target and move towards it
 
-  } else if(state == STATE_FOLLOWING) {
-
-    //if player is near, start fleeing
-    //if on water start swimming
-
-    //-> check target and move torwards it
+    checkWandering(context);
 
   } else if(state == STATE_FLEEING) {
 
@@ -118,5 +143,5 @@ void Duck::tick(TileMap *tileMap, Player *player, std::vector<PNJ> *pnjs, float 
   }
 
   //pnj update
-  update(fElapsedTime);
+  update(context.elapsedTime);
 }
