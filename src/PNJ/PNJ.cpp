@@ -4,10 +4,11 @@ PNJ::PNJ(float x, float y, std::string name) {
   this->x = x;
   this->y = y;
   this->name = name;
-  std::cout << "Animal constructor" << std::endl;
+  //std::cout << "PNJ constructor" << std::endl;
 }
+
 PNJ::~PNJ() {
-  std::cout << "Animal destructor" << std::endl;
+  //std::cout << "PNJ destructor" << std::endl;
 }
 
 void PNJ::setAnimation(uint8_t startIndex, uint8_t endIndex) {
@@ -52,7 +53,7 @@ void PNJ::update(float elapsedTime) {
   //float moveY = (rand() % 3) - 1;
   //setTarget(x+ moveX, y+moveY);
   //move(elapsedTime*0.1f);
-}
+} 
 
 void PNJ::setTarget(float dx, float dy) {
   targetX = dx;
@@ -63,12 +64,12 @@ void PNJ::move(float elapsedTime) {
   //TODO: debug/test
   //move torward target based on elapsed time and speed
   if(x>targetX)
-    x -= targetX * speed * elapsedTime;
+    x -= 0.5f * speed * elapsedTime;
   else
-    x += targetX * speed * elapsedTime;
+    x += 0.5f  * speed * elapsedTime;
 
   if(y>targetY)
-    y -= targetY * speed * elapsedTime;
+    y -= 0.5f  * speed * elapsedTime;
   else
-    y += targetY * speed * elapsedTime;
+    y += 0.5f  * speed * elapsedTime;
 }

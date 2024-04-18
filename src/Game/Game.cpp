@@ -5,10 +5,10 @@ Game::Game() {
   tileMap = TileMap();
 
     //create some PNJs
-  addPNJ(new Duck(0.0f,0.0f,"Albert", olc::BLUE, true));
+  addPNJ(new Duck(0.0f,0.0f,"Albert", olc::BLUE));
   addPNJ(new Duck(5.0f,5.0f,"Bernard", olc::GREEN));
   addPNJ(new Duck(12.0f,12.0f,"Charles", olc::YELLOW));
-  addPNJ(new Duck(-15.0f,-15.0f,"Denis", olc::RED));
+  addPNJ(new Duck(-15.0f,-15.0f,"Denis", olc::RED, true));
 }
 
 void Game::addPNJ(PNJ* pnj) {
@@ -40,5 +40,10 @@ void Game::update(float fElapsedTime) {
 
   //reset player moved flag !
   player.hasMoved = false;
+
+  Context context = Context(&tileMap, &player, &pnjs, fElapsedTime);
+  for(auto pnj : pnjs) {
+    pnj->tick(context);
+  }
 }
 

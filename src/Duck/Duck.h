@@ -50,6 +50,7 @@ class Duck : public PNJ {
 
     void checkIdle(Context context);
     void checkWandering(Context context);
+    void checkFleeing(Context context);
 
     //given other pnjs, player pos and tilemap 2d array, update duck logic
     void tick(Context context);

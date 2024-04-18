@@ -6,6 +6,8 @@
 #include <memory>
 #include <sys/types.h>
 
+class Context;
+
 class PNJ {
   private:
     olc::vi2d spriteSize = {0, 0};
@@ -20,9 +22,10 @@ class PNJ {
 
     float totalTime = 0.0f;
 
+  protected:
     float targetX=0.0f;
     float targetY=0.0f; 
-  
+
   public:
     std::string name="Unamed"; 
     
@@ -45,6 +48,8 @@ class PNJ {
     void setAnimation(uint8_t startIndex, uint8_t endIndex, float fps);
 
     void update(float elapsedTime);
+
+    virtual void tick(Context context) = 0;
 
     void setTarget(float dx, float dy); 
     void move(float elapsedTime);

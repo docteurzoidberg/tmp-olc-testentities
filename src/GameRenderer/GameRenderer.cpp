@@ -112,7 +112,7 @@ bool GameRenderer::OnUserUpdate(float elapsedTime) {
 
   //debug show player pos if player as moved
   if(game.player.hasMoved) {
-    cout << "Player pos: " << game.player.x << ", " << game.player.y << endl;
+    //cout << "Player moved pos: " << game.player.x << ", " << game.player.y << endl;
   }
   
   //get world pos

@@ -4,11 +4,11 @@
 #include "../Player/Player.h"
 #include "../PNJ/PNJ.h"
 
-class Context {
+struct Context {
   public:
     TileMap *map;
     Player *player;
-    std::vector<PNJ> *pnjs;
+    std::vector<PNJ*> *pnjs;
     float elapsedTime = 0.0f;
-    Context(TileMap *map, Player *player, std::vector<PNJ> *pnjs, float elapsedTime);
+    Context(TileMap *map, Player *player, std::vector<PNJ*> *pnjs, float elapsedTime);
 };
