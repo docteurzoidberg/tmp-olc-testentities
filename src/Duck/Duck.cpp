@@ -8,7 +8,7 @@ float randf(float lo, float hi) {
 }
 
 Duck::Duck(float x, float y, std::string name, olc::Pixel color, bool leader) : PNJ(x,y,name){
-  std::cout << "Duck constructor" << std::endl; 
+  std::cout << "Duck constructor. name: " << name << ", leader: " << leader << std::endl;
   this->speed = 1.0f; //tile per second?
   this->color = color;
   this->state = STATE_IDLE;
@@ -78,23 +78,28 @@ void Duck::startWandering() {
   setTarget(x + dx, y + dy);
 }
 
+//TODO
 void Duck::startFollowing(Duck * duckToFollow) {
+  std::cout << "Duck " << name << " start following " << duckToFollow->name << std::endl;
   state = STATE_FOLLOWING;
-  //todo choose duck to follow
+  speed = 1.0f;
   setAnimation(ANIM_WALK);
+  //todo choose duck to follow
 }
 
 void Duck::startFleeing(olc::vf2d awayFrom) {
+  std::cout << "Duck " << name << " start fleeing" << std::endl;
   state = STATE_FLEEING;
   speed = 2.0f;
   setAnimation(ANIM_FLY);
-  std::cout << "Duck " << name << " start fleeing" << std::endl;
-  //calculate flee vector
 }
 
+//TODO
 void Duck::startSwimming() {
+  std::cout << "Duck " << name << " start swimming" << std::endl;
   state = STATE_SWIMMING;
   setAnimation(ANIM_SWIM);
+  //todo: implement swimming
 }
 
 void Duck::checkIdle(Context context) {
@@ -125,6 +130,7 @@ void Duck::checkIdle(Context context) {
   }
 }
 
+//TODO: implement following
 void Duck::checkWandering(Context context) {
 
   /* 
@@ -180,10 +186,15 @@ void Duck::checkFleeing(Context context) {
 
   //calculate flee vector (away from player) and get target
   olc::vf2d fleeVector = olc::vf2d(x - context.player->x, y - context.player->y);
+  
   fleeVector.norm();
   setTarget(x + fleeVector.x, y + fleeVector.y);
 
   move(context.elapsedTime);
+}
+
+void Duck::checkSwimming(Context context) {
+  //TODO
 }
 
 //given other pnjs, player pos and tilemap 2d array, update duck logic

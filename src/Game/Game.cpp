@@ -1,11 +1,12 @@
-#include "Game/Game.h"
+#include "Game.h"
 
 Game::Game() {
   player = Player();
   tileMap = TileMap();
+  Duck *albert = new Duck(0.0f,0.0f,"Albert", olc::BLUE);
 
     //create some PNJs
-  addPNJ(new Duck(0.0f,0.0f,"Albert", olc::BLUE));
+  addPNJ(albert);
   addPNJ(new Duck(5.0f,5.0f,"Bernard", olc::GREEN));
   addPNJ(new Duck(12.0f,12.0f,"Charles", olc::YELLOW));
   addPNJ(new Duck(-15.0f,-15.0f,"Denis", olc::RED, true));

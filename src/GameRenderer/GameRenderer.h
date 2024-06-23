@@ -1,8 +1,6 @@
 #pragma once
 
-using namespace std;
-
-#include "../lib/olcPixelGameEngine.h" 
+#include "../../lib/olcPixelGameEngine.h" 
 #include "../Game/Game.h"
 
 class GameRenderer : public olc::PixelGameEngine {
@@ -10,7 +8,7 @@ class GameRenderer : public olc::PixelGameEngine {
     GameRenderer();
 
   private:
-    Game game;
+    Game* game;
 
     float totalTime = 0.0f;
     bool showDebug = true;

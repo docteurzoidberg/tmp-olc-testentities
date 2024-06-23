@@ -4,7 +4,7 @@ PNJ::PNJ(float x, float y, std::string name) {
   this->x = x;
   this->y = y;
   this->name = name;
-  //std::cout << "PNJ constructor" << std::endl;
+  std::cout << "PNJ constructor" << std::endl;
 }
 
 PNJ::~PNJ() {

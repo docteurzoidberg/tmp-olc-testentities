@@ -5,16 +5,16 @@ GameRenderer::GameRenderer() {
 }
 
 void GameRenderer::RenderPNJs(float elapsedTime) {
-  for(auto pnj : game.pnjs) {
+  for(auto pnj : game->pnjs) {
 
     //if pnj is a duck
-    if(Duck* duck = static_cast<Duck*>(pnj)) {
+    //if(Duck* duck = static_cast<Duck*>(pnj)) {
       //duck->update(elapsedTime);
-    }
+    //}
 
     //tile offset relative to player (screen center)
-    auto tileOffsetX = (pnj->x - game.player.x) * TILE_WIDTH;
-    auto tileOffsetY = (pnj->y - game.player.y) * TILE_HEIGHT;
+    auto tileOffsetX = (pnj->x - game->player.x) * TILE_WIDTH;
+    auto tileOffsetY = (pnj->y - game->player.y) * TILE_HEIGHT;
 
     //tile position on screen is tileOffset - screen center to get at 0
     auto pnjScreenX = (SCREEN_W / 2) + tileOffsetX;
@@ -38,8 +38,8 @@ void GameRenderer::RenderTileMap() {
   for (int y = 0; y < TILES_Y; y++) {
     for (int x = 0; x < TILES_X; x++) {
 
-      auto tileNoise = game.tileMap.getNoiseXY(x, y);
-      auto tile = game.tileMap.toTile(tileNoise);
+      auto tileNoise = game->tileMap.getNoiseXY(x, y);
+      auto tile = game->tileMap.toTile(tileNoise);
 
       if(!showPerlin && tile == TILE_NOTHING) 
         continue;
@@ -74,7 +74,7 @@ void GameRenderer::RenderTileMap() {
 bool GameRenderer::OnUserCreate() { 
   
   //init game
-  game = Game();
+  game = new Game();
 
   // Load the sprites
   sprTileSheet = std::make_unique<olc::Sprite>("./sprites/tileset16px.png");
@@ -99,30 +99,30 @@ bool GameRenderer::OnUserUpdate(float elapsedTime) {
     showPerlin = !showPerlin;
 
   if(GetKey(olc::Key::UP).bHeld) 
-    game.movePlayer(0,-15.0f * elapsedTime);  
+    game->movePlayer(0,-15.0f * elapsedTime);  
   
   if(GetKey(olc::Key::DOWN).bHeld) 
-    game.movePlayer(0, 15.0f * elapsedTime);  
+    game->movePlayer(0, 15.0f * elapsedTime);  
 
   if(GetKey(olc::Key::RIGHT).bHeld) 
-    game.movePlayer(15.0f * elapsedTime, 0);  
+    game->movePlayer(15.0f * elapsedTime, 0);  
   
   if(GetKey(olc::Key::LEFT).bHeld) 
-    game.movePlayer(-15.0f * elapsedTime, 0); 
+    game->movePlayer(-15.0f * elapsedTime, 0); 
 
   //debug show player pos if player as moved
-  if(game.player.hasMoved) {
+  if(game->player.hasMoved) {
     //cout << "Player moved pos: " << game.player.x << ", " << game.player.y << endl;
   }
   
   //get world pos
-  auto newWorldPos = game.getWorldPos();
+  auto newWorldPos = game->getWorldPos();
 
   //if world pos  changed, update tile map
   if(lastWorldPos != newWorldPos) {
-    sAppName = to_string(newWorldPos.x) + ", " + to_string(newWorldPos.y);
-    cout <<  "New world pos: " << newWorldPos.x << ", " << newWorldPos.y <<  ", regenerating tile map" << endl;
-    game.generateTileMap();
+    sAppName = std::to_string(newWorldPos.x) + ", " + std::to_string(newWorldPos.y);
+    std::cout <<  "New world pos: " << newWorldPos.x << ", " << newWorldPos.y <<  ", regenerating tile map" << std::endl;
+    game->generateTileMap();
     lastWorldPos = newWorldPos;
   }
   
@@ -133,7 +133,7 @@ bool GameRenderer::OnUserUpdate(float elapsedTime) {
   RenderPNJs(elapsedTime);
   
   //update game logic
-  game.update(elapsedTime);
+  game->update(elapsedTime);
   
   return true;
 }

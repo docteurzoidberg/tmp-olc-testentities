@@ -48,9 +48,11 @@ class Duck : public PNJ {
     void startFleeing(olc::vf2d awayFrom);
     void startSwimming();
 
+    //state checks
     void checkIdle(Context context);
     void checkWandering(Context context);
     void checkFleeing(Context context);
+    void checkSwimming(Context context);
 
     //given other pnjs, player pos and tilemap 2d array, update duck logic
     void tick(Context context);

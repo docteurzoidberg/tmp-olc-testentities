@@ -2,11 +2,11 @@
 
 #include <cstdint>
 
-#include "defines.h"
+#include "../defines.h"
 
 #define DB_PERLIN_IMPL
 
-#include "../lib/dbPerlin.hpp"
+#include "../../lib/dbPerlin.hpp"
 
 enum Tiles { 
   TILE_NOTHING = 0, 

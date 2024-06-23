@@ -1,6 +1,6 @@
 #pragma once 
 
-#include "../lib/olcPixelGameEngine.h"
+#include "../../lib/olcPixelGameEngine.h"
 
 class Player {
   public:

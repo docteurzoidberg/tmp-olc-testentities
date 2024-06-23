@@ -1,6 +1,5 @@
 #define OLC_PGE_APPLICATION
 
-using namespace std;
 
 #include "defines.h"
 
@@ -11,7 +10,7 @@ int main() {
   if (renderer2d.Construct(SCREEN_W , SCREEN_H, SCREEN_PIXELSIZE, SCREEN_PIXELSIZE))
     renderer2d.Start();
   else {
-    cout << "Failed to construct renderer" << endl;
+    std::cout << "Failed to construct renderer" << std::endl;
     return 1;
   }
   return 0;
